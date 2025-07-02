@@ -1,0 +1,46 @@
+[project]
+name = "op-python"
+version = "0.1.0"
+description = "Python wrapper for 1Password CLI (op) for managing secrets"
+authors = [
+    {name = "Nathan Eric Norman", email = "nenorman@norme.sh"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["1password", "secrets", "cli", "password-manager"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "python-dotenv>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/IvoryNomad/op-python"
+Repository = "https://github.com/IvoryNomad/op-python"
+Issues = "https://github.com/IvoryNomad/op-python/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.5.0",
+]
+
+[tool.poetry]
+packages = [{include = "op_python", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
