@@ -31,12 +31,13 @@ Repository = "https://github.com/IvoryNomad/op-python"
 Issues = "https://github.com/IvoryNomad/op-python/issues"
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=7.4.0",
-    "black>=23.0.0",
-    "flake8>=6.0.0",
-    "mypy>=1.5.0",
-]
+# Future optional features can go here
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.0.0"
+flake8 = "^6.0.0"
+mypy = "^1.5.0"
 
 [tool.poetry]
 packages = [{include = "op_python", from = "src"}]

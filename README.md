@@ -169,7 +169,7 @@ op.delete_item("MyApp", vault="Personal")
 git clone https://github.com/yourusername/op-python.git
 cd op-python
 
-# Install dependencies
+# Install dependencies (including dev tools)
 poetry install
 
 # Run tests
@@ -180,6 +180,9 @@ poetry run black .
 
 # Type checking
 poetry run mypy src/
+
+# Build package
+poetry build
 ```
 
 ## License
