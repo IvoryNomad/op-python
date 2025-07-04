@@ -2,16 +2,17 @@
 Tests for OpClient
 """
 
-import pytest
 import os
 import tempfile
 from pathlib import Path
-from unittest.mock import patch, MagicMock
-from op_python import OpClient, OnePasswordError
+from unittest.mock import MagicMock, patch
+
+import pytest
+
+from op_python import OnePasswordError, OpClient
 
 
 class TestOpClient:
-
     @patch.dict(os.environ, {"OP_SERVICE_ACCOUNT_TOKEN": "test_token"})
     def test_init_success_with_service_account(self):
         """Test successful initialization with service account token."""
