@@ -38,6 +38,7 @@ pytest = "^7.4.0"
 black = "^23.0.0"
 flake8 = "^6.0.0"
 mypy = "^1.5.0"
+isort = "^6.0.1"
 
 [tool.poetry]
 packages = [{include = "op_python", from = "src"}]
