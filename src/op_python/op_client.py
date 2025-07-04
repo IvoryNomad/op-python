@@ -2,12 +2,16 @@
 1Password CLI wrapper for Python
 """
 
-import subprocess
 import json
+import logging
 import os
-from typing import Dict, List, Optional, Any, Union
+import subprocess
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
+
 from dotenv import load_dotenv
+
+logger = logging.getLogger(__name__)
 
 
 class OnePasswordError(Exception):
@@ -47,6 +51,13 @@ class OpClient:
         Raises:
             OnePasswordError: If required authentication environment variables are not set
         """
+        logger.debug(
+            "op-python instantiating OpClient class instance, { 'op_path' : %s, 'use_dotenv': %s, 'dotenv_path': %s, 'dotenv_override': %s",
+            op_path,
+            use_dotenv,
+            dotenv_path,
+            dotenv_override,
+        )
         self.op_path = op_path
         if use_dotenv:
             self._load_dotenv(dotenv_path, dotenv_override)
@@ -62,9 +73,17 @@ class OpClient:
         Args:
             dotenv_path: Path to .env file to load
         """
-        env_file = Path(dotenv_path)
-        if env_file.exists():
-            load_dotenv(env_file, override=dotenv_override)
+        dotenv_path = Path(dotenv_path)
+        if str(dotenv_path).startswith("~"):
+            dotenv_path = dotenv_path.expanduser()
+        else:
+            dotenv_path = dotenv_path.resolve()
+
+        if dotenv_path.exists():
+            logger.info("op-python loading dotenv_path  %s", dotenv_path)
+            load_dotenv(dotenv_path, override=dotenv_override)
+        else:
+            logger.warning("op-python could not find dotenv_path %s", dotenv_path)
 
     def _check_op_available(self) -> None:
         """Check if the op CLI is available and accessible."""
