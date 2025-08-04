@@ -1,6 +1,6 @@
 # op-python
 
-[![PyPI - Version](https://img.shields.io/pypi/v/:op-python)](https://pypi.org/project/op-python/)
+[![PyPI - Version](https://img.shields.io/pypi/v/op-python)](https://pypi.org/project/op-python/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![CI](https://github.com/IvoryNomad/op-python/workflows/CI/badge.svg)](https://github.com/IvoryNomad/op-python/actions)
