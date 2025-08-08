@@ -7,7 +7,7 @@ import logging
 import os
 import subprocess
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, cast
 
 from dotenv import load_dotenv
 
@@ -38,7 +38,7 @@ class OpClient:
         use_dotenv: bool = False,
         dotenv_path: Union[str, Path] = ".env",
         dotenv_override: bool = False,
-    ):
+    ) -> None:
         """
         Initialize the OpClient.
 
@@ -88,7 +88,7 @@ class OpClient:
     def _check_op_available(self) -> None:
         """Check if the op CLI is available and accessible."""
         try:
-            result = subprocess.run(
+            _ = subprocess.run(
                 [self.op_path, "--version"], capture_output=True, text=True, check=True
             )
         except (subprocess.CalledProcessError, FileNotFoundError) as e:
@@ -174,7 +174,7 @@ class OpClient:
             args.extend(["--vault", vault])
 
         output = self._run_op_command(args)
-        return json.loads(output)
+        return cast(Dict[str, Any], json.loads(output))
 
     def list_items(
         self, vault: Optional[str] = None, categories: Optional[List[str]] = None
@@ -197,7 +197,7 @@ class OpClient:
                 args.extend(["--categories", category])
 
         output = self._run_op_command(args)
-        return json.loads(output)
+        return cast(List[Dict[str, Any]], json.loads(output))
 
     def get_secret(self, secret_reference: str) -> str:
         """
@@ -221,10 +221,14 @@ class OpClient:
         """
         args = ["vault", "list", "--format=json"]
         output = self._run_op_command(args)
-        return json.loads(output)
+        return cast(List[Dict[str, Any]], json.loads(output))
 
     def create_item(
-        self, title: str, category: str = "Login", vault: Optional[str] = None, **fields
+        self,
+        title: str,
+        category: str = "Login",
+        vault: Optional[str] = None,
+        **fields: Any,
     ) -> Dict[str, Any]:
         """
         Create a new item in 1Password.
@@ -255,7 +259,7 @@ class OpClient:
             args.extend([f"--{field_name}", str(field_value)])
 
         output = self._run_op_command(args)
-        return json.loads(output)
+        return cast(Dict[str, Any], json.loads(output))
 
     def delete_item(self, item_identifier: str, vault: Optional[str] = None) -> str:
         """
