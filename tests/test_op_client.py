@@ -18,7 +18,7 @@ class TestOpClient:
         """Test successful initialization with service account token."""
         with patch("subprocess.run") as mock_run:
             mock_run.return_value = MagicMock(stdout="2.0.0")
-            client = OpClient()  # Default: no dotenv loading
+            _ = OpClient()  # Default: no dotenv loading
             mock_run.assert_called_once()
 
     @patch.dict(
@@ -32,7 +32,7 @@ class TestOpClient:
         """Test successful initialization with Connect credentials."""
         with patch("subprocess.run") as mock_run:
             mock_run.return_value = MagicMock(stdout="2.0.0")
-            client = OpClient()  # Default: no dotenv loading
+            _ = OpClient()  # Default: no dotenv loading
             mock_run.assert_called_once()
 
     def test_init_with_dotenv_enabled(self):
@@ -50,7 +50,7 @@ class TestOpClient:
                 try:
                     os.chdir(temp_dir)
                     with patch.dict(os.environ, {}, clear=True):
-                        client = OpClient(use_dotenv=True)
+                        _ = OpClient(use_dotenv=True)
                         # Should succeed because dotenv loaded the token
                         assert os.getenv("OP_SERVICE_ACCOUNT_TOKEN") == "dotenv_token"
                 finally:
@@ -67,7 +67,7 @@ class TestOpClient:
                 mock_run.return_value = MagicMock(stdout="2.0.0")
 
                 with patch.dict(os.environ, {}, clear=True):
-                    client = OpClient(use_dotenv=True, dotenv_path=custom_env)
+                    _ = OpClient(use_dotenv=True, dotenv_path=custom_env)
                     # Should succeed because custom dotenv loaded the token
                     assert os.getenv("OP_SERVICE_ACCOUNT_TOKEN") == "custom_token"
 
@@ -100,7 +100,7 @@ class TestOpClient:
 
             with patch.dict(os.environ, {"OP_SERVICE_ACCOUNT_TOKEN": "env_token"}):
                 # Should work fine when .env doesn't exist but env vars are set
-                client = OpClient(use_dotenv=True)
+                _ = OpClient(use_dotenv=True)
 
     def test_env_vars_override_dotenv(self):
         """Test that existing environment variables are not overridden by .env file by default."""
@@ -118,7 +118,7 @@ class TestOpClient:
                     with patch.dict(
                         os.environ, {"OP_SERVICE_ACCOUNT_TOKEN": "env_token"}
                     ):
-                        client = OpClient(
+                        _ = OpClient(
                             use_dotenv=True
                         )  # dotenv_override=False by default
                         # Environment variable should take precedence over .env
@@ -142,7 +142,7 @@ class TestOpClient:
                     with patch.dict(
                         os.environ, {"OP_SERVICE_ACCOUNT_TOKEN": "env_token"}
                     ):
-                        client = OpClient(use_dotenv=True, dotenv_override=True)
+                        _ = OpClient(use_dotenv=True, dotenv_override=True)
                         # .env value should override environment variable
                         assert os.getenv("OP_SERVICE_ACCOUNT_TOKEN") == "dotenv_token"
                 finally:
