@@ -1,0 +1,35 @@
+# .github/dependency-review-config.yml
+# Configuration for dependency review action
+
+# Fail if any vulnerabilities with this severity or higher are found
+fail-on-severity: moderate
+
+# Allow these open source licenses
+allow-licenses:
+  - MIT
+  - Apache-2.0
+  - BSD-2-Clause
+  - BSD-3-Clause
+  - ISC
+  - GPL-3.0
+  - LGPL-2.1
+
+# Deny specific licenses (these will cause the action to fail)
+deny-licenses:
+  - GPL-2.0
+  - AGPL-3.0
+
+# Allow specific dependencies even if they have vulnerabilities
+# allow-dependencies-licenses:
+#   - pkg:pypi/some-package@1.0.0
+
+# Fail if new dependencies are added that match these patterns
+deny-packages:
+  - pkg:pypi/*malware*
+  - pkg:pypi/*backdoor*
+
+# Comment on PRs with dependency changes
+comment-summary-in-pr: true
+
+# Show only changes that introduce new vulnerabilities
+show-openssf-scorecard: true
