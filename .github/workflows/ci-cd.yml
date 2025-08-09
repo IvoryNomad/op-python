@@ -159,7 +159,7 @@ jobs:
 
     - name: Run safety (dependency vulnerability check)
       run: |
-        poetry run safety check --json --output json --save-json safety-report.json
+        poetry run safety check --output json --save-json safety-report.json
       continue-on-error: true
 
     - name: Upload safety report
